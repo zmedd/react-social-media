@@ -1,8 +1,15 @@
+import LogInPage from "./pages/Login";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 function App() {
   return (
-    <div>
-      <h1>hello</h1>
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/" exact>
+          <LogInPage />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
