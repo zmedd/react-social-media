@@ -4,9 +4,11 @@ import { Input, SubmitBtn } from "../components";
 import axios from "axios";
 import { Link, Redirect } from "react-router-dom";
 
-const LogInPage = ({ loggedIn, handleLogIn }) => {
-  const [email, setEmail] = useState("zmed.alex+1@gmail.com");
-  const [password, setPassword] = useState("superSecretPass");
+const RegisterPage = ({ loggedIn }) => {
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   // eslint-disable-next-line
   const [error, setError] = useState(undefined);
 
@@ -16,6 +18,12 @@ const LogInPage = ({ loggedIn, handleLogIn }) => {
 
   function handleChange(value, input) {
     switch (input) {
+      case "fname":
+        setFname(value);
+        break;
+      case "lname":
+        setLname(value);
+        break;
       case "email":
         setEmail(value);
         break;
@@ -29,14 +37,14 @@ const LogInPage = ({ loggedIn, handleLogIn }) => {
 
   function handleSubmit() {
     axios
-      .post("https://backend-curs.herokuapp.com/users/login", {
+      .post("https://backend-curs.herokuapp.com/users/register", {
+        first_name: fname,
+        last_name: lname,
         email: email,
         password: password,
       })
       .then((response) => {
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-        handleLogIn(response.data.user);
+        console.log(response);
       })
       .catch((e) => console.log(e));
   }
@@ -44,8 +52,20 @@ const LogInPage = ({ loggedIn, handleLogIn }) => {
   return (
     <PageWrap>
       <Container>
-        <h1>Log in</h1>
-        <p>Log in to view newsfeed</p>
+        <h1>Register</h1>
+        <p>Create new account</p>
+        <Input
+          type="text"
+          handleChange={(e) => handleChange(e.target.value, "fname")}
+          value={fname}
+          placeholder="First name"
+        />
+        <Input
+          type="text"
+          handleChange={(e) => handleChange(e.target.value, "lname")}
+          value={lname}
+          placeholder="Last name"
+        />
         <Input
           type="email"
           handleChange={(e) => handleChange(e.target.value, "email")}
@@ -60,12 +80,12 @@ const LogInPage = ({ loggedIn, handleLogIn }) => {
           error={error}
         />
         <p>
-          Don't have an account? <Link to="/register">Register</Link>
+          Have an account? <Link to="/">Log in</Link>
         </p>
-        <SubmitBtn text="Log in" handleClick={handleSubmit} />
+        <SubmitBtn text="Register" handleClick={handleSubmit} />
       </Container>
     </PageWrap>
   );
 };
 
-export default LogInPage;
+export default RegisterPage;
