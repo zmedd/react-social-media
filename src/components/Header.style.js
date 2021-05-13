@@ -5,6 +5,10 @@ export const Header = styled.header`
   color: #fafafa;
   padding-top: 5px;
   padding-bottom: 5px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 `;
 
 export const Container = styled.div`
