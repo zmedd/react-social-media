@@ -20,7 +20,7 @@ const NewsfeedPage = ({ loggedIn, handleLogOut, user }) => {
         setLoading(false);
       })
       .catch((error) => alert(`Whoops: ${JSON.stringify(error)}`));
-  });
+  }, []);
 
   return (
     <div>
