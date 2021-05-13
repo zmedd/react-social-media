@@ -11,15 +11,17 @@ const NewsfeedPage = ({ loggedIn, handleLogOut, user }) => {
   !loggedIn && <Redirect to="/" />;
 
   useEffect(() => {
-    axios
-      .get("https://backend-curs.herokuapp.com/posts", {
-        Authorization: `Bearer ${localStorage.token}`,
-      })
-      .then((response) => {
-        setPosts(response.data);
-        setLoading(false);
-      })
-      .catch((error) => alert(`Whoops: ${JSON.stringify(error)}`));
+    if (loading) {
+      axios
+        .get("https://backend-curs.herokuapp.com/posts", {
+          Authorization: `Bearer ${localStorage.token}`,
+        })
+        .then((response) => {
+          setPosts(response.data);
+          setLoading(false);
+        })
+        .catch((error) => alert(`Whoops: ${JSON.stringify(error)}`));
+    }
   }, []);
 
   return (
