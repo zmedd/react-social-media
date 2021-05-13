@@ -10,6 +10,8 @@ const NewsfeedPage = ({ loggedIn, handleLogOut, user }) => {
 
   !loggedIn && <Redirect to="/" />;
 
+  alert("staging");
+
   useEffect(() => {
     if (loading) {
       axios
